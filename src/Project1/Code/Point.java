@@ -60,6 +60,5 @@ public class Point {
 
         return Math.sqrt(yCord * yCord + xCord * xCord);
 
-
     }
 }
