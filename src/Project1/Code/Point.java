@@ -18,8 +18,8 @@ public class Point {
         if (this == o) return true;
         if (!(o instanceof Point)) return false;
         Point point = (Point) o;
-        return Math.abs(point.x- x) < 0.000001 &&
-                Math.abs(point.y- y) < 0.000001;
+        return Math.abs(point.x - x) < 0.000001 &&
+                Math.abs(point.y - y) < 0.000001;
     }
 
     @Override
@@ -29,32 +29,37 @@ public class Point {
 
     @Override
     public String toString() {
-        return "("+x+","+y+")";
+        return "(" + x + "," + y + ")";
     }
 
-    public double distanceFromOrigin(){
-        return Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+    public double distanceFromOrigin() {
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
-    public String getQuadrant(){
+    public String getQuadrant() {
         //x is positive and y is positive
-        if (x>0 && y>0){
+        if (x > 0 && y > 0) {
             return "1";
-        }
-        else if (x<0 && y>0){
+        } else if (x < 0 && y > 0) {
             return "2";
-        }
-        else if (x<0 && y<0){
+        } else if (x < 0 && y < 0) {
             return "3";
-        }
-        else if (x>0 && y<0){
+        } else if (x > 0 && y < 0) {
             return "4";
-        }
-        else if (x==0 || y==0){
+        } else if (x == 0 || y == 0) {
             return "Axes";
-        }
-        else {
+        } else {
             return null;
         }
+    }
+
+    public double toPoint(Point otherPoint) {
+
+        double yCord = (y - otherPoint.y);
+        double xCord = (x - otherPoint.x);
+
+        return Math.sqrt(yCord * yCord + xCord * xCord);
+
+
     }
 }
