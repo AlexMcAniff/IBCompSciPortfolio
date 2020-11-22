@@ -1,79 +1,79 @@
 package Project3;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 
 public class Game extends JPanel {
     private JButton[] buttons = new JButton[9];
-    private boolean x = true;
+    int winCounter = 0;
+    private Turn turn = Turn.X;
     int[] horizontalWin = new int[2];
 
     public Game() {
         this.setLayout(new GridLayout(3, 3));
-        for (JButton b : buttons) {
-            b = new JButton();
-            b.addActionListener(new ButtonListener());
-            b.setText("");
-            this.add(b);
+        for (int i = 0; i < 9; i++) {
+            JButton button = new JButton();
+            button.addActionListener(new ButtonListener());
+            button.setText("");
+            this.add(button);
+            buttons[i] = button;
         }
 
     }
 
     private class ButtonListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
 
             JButton buttonClicked = (JButton) e.getSource();
-            if (buttonClicked.getText()== "") {
-                if (x) {
-                    buttonClicked.setText("x");
+            if (buttonClicked.getText().equals("")) {
 
-
-                } else {
-                    buttonClicked.setText("O");
-
+                switch (turn) {
+                    case O -> buttonClicked.setText("o");
+                    case X -> buttonClicked.setText("x");
                 }
-                x = !x;
+
+                turn = turn.takeTurn();
 
             }
 
             winStatement(buttons[0].getText(),buttons[1].getText(),buttons[2].getText());
+            winStatement(buttons[3].getText(),buttons[4].getText(),buttons[5].getText());
+            winStatement(buttons[6].getText(),buttons[7].getText(),buttons[8].getText());
+            winStatement(buttons[0].getText(),buttons[3].getText(),buttons[6].getText());
+            winStatement(buttons[1].getText(),buttons[4].getText(),buttons[7].getText());
+            winStatement(buttons[2].getText(),buttons[5].getText(),buttons[8].getText());
+            winStatement(buttons[0].getText(),buttons[4].getText(),buttons[8].getText());
+            winStatement(buttons[2].getText(),buttons[4].getText(),buttons[6].getText());
+
+
         }
     }
 
-    public void winStatement(String pointA,String pointB,String pointC) {
-        if(pointA == pointB && pointB == pointC){
-            System.out.println(pointA+" wins!");
+    private void winStatement(String pointA,String pointB,String pointC) {
+        if (pointA.equals(pointB) && pointB.equals(pointC) && !pointA.equals("")) {
+            System.out.println(pointA + " wins!");
+            //restart();
         }
 
-//        int hWin = 0;
-//        int line = 0;
-//        for (int i = 0; i < 3; i++) {
-//            if (i == 1) {
-//                hWin = 1;
-//                line = 3;
-//            } else if (i == 2) {
-//                hWin = 2;
-//                line = 6;
-//            }
-//            for (int j = 0; j < 3; j++) {
-//                int lineI = i + line;
-//                if (buttons[lineI].getText().equals("")) {
-//                    break;
-//                } else if (buttons[lineI].getText().equals("x")) {
-//                    horizontalWin[hWin] += 1;
-//                } else {
-//                    horizontalWin[1] += 0;
-//                }
-//            }
-//        }
-//        System.out.println(Arrays.toString(horizontalWin));
+    }
+    private enum Turn {
+        X,
+        O;
+
+        private Turn takeTurn() {
+            switch (this) {
+                case X -> {return O;}
+                case O -> {return X;}
+            }
+
+            return null;
+        }
     }
 }
-
-
-
