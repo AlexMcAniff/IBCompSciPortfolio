@@ -12,7 +12,8 @@ public class Game extends JPanel {
     private JButton[] buttons = new JButton[9];
     int winCounter = 0;
     private Turn turn = Turn.X;
-    int[] horizontalWin = new int[2];
+
+
 
     public Game() {
         this.setLayout(new GridLayout(3, 3));
@@ -59,8 +60,8 @@ public class Game extends JPanel {
     private void winStatement(String pointA,String pointB,String pointC) {
         if (pointA.equals(pointB) && pointB.equals(pointC) && !pointA.equals("")) {
             System.out.println(pointA + " wins!");
-            //restart();
         }
+
 
     }
     private enum Turn {
