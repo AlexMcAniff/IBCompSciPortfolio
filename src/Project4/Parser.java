@@ -27,6 +27,7 @@ public class Parser {
             total += Double.parseDouble(scanner.nextLine());
             count += 1;
         }
+        int test = 0;
         System.out.println(total = total/count);
     }
 
