@@ -6,29 +6,33 @@ import java.util.Scanner;
 public class Parser {
     public Scanner scanner;
     private File file;
+    int fileLength;
+    double[] parserArray;
+    int key = 0;
 
-    public Parser (File file) {
+    public Parser (File file, int fileLength) {
         try{
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             System.out.println("no file was found");
             e.printStackTrace();
         }
+        this.fileLength = fileLength;
+        parserArray = new double[fileLength];
+        toArray();
     }
-    public void printData(){
+    public void toArray(){
         while (scanner.hasNext()){
-            System.out.println(scanner.nextLine());
+            parserArray[key] = Double.parseDouble(scanner.next());
+            key += 1;
         }
     }
     public void average(){
         double total = 0;
-        int count = 0;
-        while (scanner.hasNext()){
-            total += Double.parseDouble(scanner.nextLine());
-            count += 1;
+        for (int i = 0; i < parserArray.length ; i++) {
+            total += parserArray[i];
         }
-        int test = 0;
-        System.out.println(total = total/count);
+        System.out.println(total = total/parserArray.length);
     }
 
 }
